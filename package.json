@@ -1,24 +1,23 @@
 {
-  "name": "jquery.autokana",
+  "name": "angular-autokana",
   "version": "1.0.0",
-  "description": "Library for automatically rendering Furigana for inputed Japanese Text.",
-  "main": "jquery.autoKana.js",
+  "description": " AngularJS directive for automatically rendering Furigana for inputed Japanese Text. Originally created by harisenbon jquery.autokana.js",
+  "main": "angular-autokana.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/harisenbon/autokana.git"
+    "url": "git+https://github.com/masayosh4/autokana.git"
   },
   "keywords": [
-    "jquery",
+    "angular",
     "plugin",
     "autokana"
   ],
-  "author": "Keith Perhac",
+  "author": "Masaki Yoshida",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/harisenbon/autokana/issues"
-  },
-  "homepage": "https://github.com/harisenbon/autokana#readme"
+    "url": "https://github.com/masayosh4/autokana/issues"
+  }
 }

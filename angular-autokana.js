@@ -1,3 +1,4 @@
+// jquery.autoKana.js Library created by:
 // Copyright (c) 2013 Keith Perhac @ DelfiNet (http://delfi-net.com)
 //
 // Based on the AutoRuby library created by:
@@ -22,14 +23,13 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-(function ($) {
-    $.fn.autoKana = function (element1, element2, passedOptions) {
+'use strict';
+angular.module('autokana', [])
+  .factory('AutokanaFac', function(){
 
-        var options = $.extend(
-            {
-                'katakana': false
-            }, passedOptions);
+    function autokanaSet(element1, element2, passedOptions) {
 
+        var options = passedOptions || {};
         var kana_extraction_pattern = new RegExp('[^ 　ぁあ-んー]', 'g');
         var kana_compacting_pattern = new RegExp('[ぁぃぅぇぉっゃゅょ]', 'g');
         var elName,
@@ -42,14 +42,14 @@
             ignoreString,
             baseKana;
 
-        elName = $(element1);
-        elKana = $(element2);
+        elName = element1;
+        elKana = element2;
         active = true;
         _stateClear();
 
-        elName.blur(_eventBlur);
-        elName.focus(_eventFocus);
-        elName.keydown(_eventKeyDown);
+        elName.bind('blur', _eventBlur);
+        elName.bind('focus', _eventFocus);
+        elName.bind('keydown', _eventKeyDown);
 
         function start() {
             active = true;
@@ -195,4 +195,49 @@
             }
         }
     };
-})(jQuery);
+
+    function AutokanaFac() {
+      this.elems = {};
+      this.options = {};
+    }
+    AutokanaFac.prototype.addInput = function(key, elem) {
+      if (this.elems[key]) {
+        autokanaSet(elem, this.elems[key], this.options[key]);
+        delete this.elems[key];
+        return;
+      }
+      this.elems[key] = elem;
+    };
+    AutokanaFac.prototype.addKana = function(key, elem, option) {
+      if (this.elems[key]) {
+        autokanaSet(this.elems[key], elem, option);
+        delete this.elems[key];
+        return;
+      }
+      this.elems[key] = elem;
+      this.options[key] = option;
+    };
+    return new AutokanaFac();
+  })
+  .directive('autokanaInput', ['AutokanaFac', function(AutokanaFac) {
+    return {
+      restrict: 'A',
+      scope:true,
+      link: function(scope, elem, attrs) {
+        AutokanaFac.addInput(String(attrs.autokanaInput), elem);
+      }
+    };
+  }])
+  .directive('autokanaKana', ['AutokanaFac', function(AutokanaFac) {
+    return {
+      restrict: 'A',
+      scope:true,
+      link: function(scope, elem, attrs) {
+        var katakana = false;
+        if ('undefined' !== typeof attrs.autokanaKatakana) {
+          katakana = true;
+        }
+        AutokanaFac.addKana(String(attrs.autokanaKana), elem, {katakana:katakana});
+      }
+    };
+  }]);

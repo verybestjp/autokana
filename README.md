@@ -1,41 +1,43 @@
-autokana
+angular-autokana
 ========
 
-Library for automatically rendering Furigana for inputed Japanese Text.
+AngularJS Plugin for automatically rendering Furigana for inputed Japanese Text.
 
-日本語入力に対するフリガナを自動的に別フィールドに記入するJQueryプラグイン。
+日本語入力に対するフリガナを自動的に別フィールドに記入するAngularJSプラグイン
 
 Requires
 -------------------------------------------------
 
-* Jquery
+* AngularJS
 
 Description
 -------------------------------------------------
 
-Attaches a keydown listener to the first defined element, and transfers the inputted kana characters to the second element.
+Attaches a keydown listener to the input element, and transfers the inputted kana characters to another input element.
 This allows Japanese users to automatically input the furigana for their name without needing to input data twice. Because the furigana box is filled out in real time, corrections can be made by the user afterwards.
 
-Based on Rubricks' autoRuby.js prototype project: http://d.hatena.ne.jp/rubricks/20080702/1215003705
+Originally created by harisenbon jquery.autokana.js: https://github.com/harisenbon/autokana
 
-第１変数のJqueryセレクターにキーダウンリスナーをバインドして、入力された文字をフリガナとして第２変数のJqueryセレクターに自動的に入力する。
+input要素にキーダウンリスナーをバインドして、入力された文字をフリガナとしてもう一つのinput要素に自動的に入力する。
 
-RubricksのautoRuby.jsをベースにしました。Prototype版が必要でしたら、こちらを参照してください：
-http://d.hatena.ne.jp/rubricks/20080702/1215003705
-
+jQuery用のautokanaをAngularJSプラグインに変換しました。jQuery用は以下を参照してください：
+https://github.com/harisenbon/autokana
 
 Usage
 -------------------------------------------------
 
-* Pass the NAME element and the FURIGANA input elements to the Plugin
-* $.fn.autoKana('#UserName', '#UserFurigana');
-* Optionally, pass the katakana:true option to automatically convert the furigana to full-width katakana
-* $.fn.autoKana('#UserName', '#UserFurigana', {katakana:true});
+* Pass the each autokana-input and autokana-kana attribute to to text input tag:
+  * ``<input type="text" autokana-input>`` : for KANJI input tag
+  * ``<input type="text" autokana-kana>`` : for HIRAGANA input tag
 
-* 名前とフリガナのフィールドエレメントをプラグインに定義：
-* $.fn.autoKana('#UserName', '#UserFurigana');
-* katakana:trueのオプションを定義した場合、フリガナがカタカナに変換されます。
-* $.fn.autoKana('#UserName', '#UserFurigana', {katakana:true});
+* Optionally, pass the autokana-katakana attribute to HIRAGANA input tag automatically convert the furigana to full-width katakana
+  * ``<input type="text" autokana-kana autokana-katakana>``
+
+* autokana-inputとautokana-kana属性をtext inputタグに設定します。
+  * ``<input type="text" autokana-input>`` : for 漢字 input tag
+  * ``<input type="text" autokana-kana>`` : for ひらがな input tag
+* autokana-katakana属性をひらがなinput tagに設定した場合、カタカナに変換されます。
+  * ``<input type="text" autokana-kana autokana-katakana>``
 
 Issues
 -------------------------------------------------
@@ -47,12 +49,3 @@ Issues
 * 入力欄から文字を削除した場合、カナはフリガナのフィールドからも削除されますが、入力された文字が漢字だった場合は、文字を削除しても、この通りに反映されない
 * keydownを利用しているので、コピペされたテキストは非対応
 * ローマ字は非対応
-
-Example Site
--------------------------------------------------
-
-Made for Kurokabe Square's online reservation system:
-http://kurokabe.jp/
-
-長浜黒壁スクエアのクラス吹き体験教室システム
-http://kurokabe.jp/
