@@ -92,7 +92,7 @@ angular.module('autokana', [])
 
         function _checkValue() {
             var new_input, new_values;
-            new_input = elName.val()
+            new_input = elName.val() || elName.text();
             if (new_input == '') {
                 _stateClear();
                 _setKana();
@@ -156,7 +156,11 @@ angular.module('autokana', [])
                 }
                 if (active) {
                     var _val = _toKatakana(baseKana + values.join(''));
-                    elKana.val(_val);
+                    if (elKana.prop('tagName') === 'INPUT') {
+                      elKana.val(_val);
+                    } else {
+                      elKana.text(_val);
+                    }
                     elKana.triggerHandler('change');
                 }
             }
@@ -169,9 +173,9 @@ angular.module('autokana', [])
             values = [];
         };
         function _stateInput() {
-            baseKana = elKana.val();
+            baseKana = elKana.val() || elKana.text();
             flagConvert = false;
-            ignoreString = elName.val();
+            ignoreString = elName.val() || elName.text();
         };
         function _stateConvert() {
             baseKana = baseKana + values.join('');
