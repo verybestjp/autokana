@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/masayosh4/autokana.git"
+    "url": "git+https://github.com/verybestjp/autokana.git"
   },
   "keywords": [
     "angular",
@@ -18,6 +18,6 @@
   "author": "Masaki Yoshida",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/masayosh4/autokana/issues"
+    "url": "https://github.com/verybestjp/autokana/issues"
   }
 }

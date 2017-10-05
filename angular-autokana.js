@@ -30,7 +30,7 @@ angular.module('autokana', [])
     function autokanaSet(element1, element2, passedOptions) {
 
         var options = passedOptions || {};
-        var kana_extraction_pattern = new RegExp('[^ 　ぁあ-んー]', 'g');
+        var kana_extraction_pattern = new RegExp('[^ 　ぁあ-んゔー]', 'g');
         var kana_compacting_pattern = new RegExp('[ぁぃぅぇぉっゃゅょ]', 'g');
         var elName,
             elKana,
@@ -128,7 +128,7 @@ angular.module('autokana', [])
             }
         };
         function _isHiragana(chara) {
-            return ((chara >= 12353 && chara <= 12435) || chara == 12445 || chara == 12446);
+            return ((chara >= 12353 && chara <= 12435) || chara == 12445 || chara == 12446 || chara == 12436 /*ゔ*/);
         };
         function _removeString(new_input) {
             if (new_input.indexOf(ignoreString) !== -1) {
