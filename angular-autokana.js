@@ -41,6 +41,7 @@ angular.module('autokana', [])
             values,
             ignoreString,
             baseKana;
+        var isLastN = false;
 
         elName = element1;
         elKana = element2;
@@ -79,12 +80,20 @@ angular.module('autokana', [])
                     var tmp_values = new_values.join('').replace(kana_compacting_pattern, '').split('');
                     if (Math.abs(values.length - tmp_values.length) > 1) {
                         _stateConvert();
+                    } else if (elName.val().match(/[nｎ]$/)) {
+                        isLastN = true;
+                    } else {
+                        isLastN = false;
                     }
                 } else {
                     if (values.length == input.length && values.join('') != input) {
                         if (input.match(kana_extraction_pattern)) {
                             _stateConvert();
                         }
+                    } else if (elName.val().match(/[nｎ]$/)) {
+                        isLastN = true;
+                    } else {
+                        isLastN = false;
                     }
                 }
             }
@@ -178,6 +187,13 @@ angular.module('autokana', [])
             ignoreString = elName.val() || elName.text();
         };
         function _stateConvert() {
+            if (isLastN && elKana.val().length > 0) {
+                var _val = elKana.val();
+                var _new_val = _val.replace(/ヴ/g, 'ゔ');
+                elKana.val(_new_val + 'ン');
+            }
+            isLastN = false;
+
             baseKana = baseKana + values.join('');
             flagConvert = true;
             values = [];
