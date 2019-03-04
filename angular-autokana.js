@@ -30,7 +30,7 @@ angular.module('autokana', [])
     function autokanaSet(element1, element2, passedOptions) {
 
         var options = passedOptions || {};
-        var kana_extraction_pattern = new RegExp('[^ 　ぁあ-んゔー・]', 'g');
+        var kana_extraction_pattern = new RegExp('[^ 　ぁあ-んゔヴー・]', 'g');
         var kana_compacting_pattern = new RegExp('[ぁぃぅぇぉっゃゅょ]', 'g');
         var elName,
             elKana,
